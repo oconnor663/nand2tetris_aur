@@ -3,7 +3,7 @@
 
 pkgname=nand2tetris
 pkgver=2.6
-pkgrel=5
+pkgrel=6
 pkgdesc="Software suite accompanying Nand2Tetris course."
 arch=('any')
 url="http://www.nand2tetris.org/"
@@ -19,6 +19,7 @@ source=(n2tCPUEmulator.run
         n2tVMEmulator.desktop
         n2tHardwareSimulator.desktop
         n2tAssembler.desktop
+        'git+https://github.com/oconnor663/nand2tetris#commit=c82bb26b15bc19743fe09f4a41dc1f91e33abf79'
 )
 _nand2teris_source="nand2tetris.zip"
 _nand2teris_url="https://www.nand2tetris.org/software"
@@ -30,23 +31,9 @@ sha256sums=('f93e4c08ed6af6a687f8d144598f998a19ac544d9fe6da05c162932d00f6a592'
             '4d7f229975ae964012e61f2f6cd30a0b2f014b7fc81d7bc8b7eed869a1e2313c'
             '22ae5ab8f278d5f1a6084f2a4bf21702795d8e4d2e24dea4fc92dd1c3df8681f'
             '054d1883e9eeaef754d9c4f15868d3722c08672a34a8d7dcdb242620ed22ba51'
-            '2cd1b2c93dd68de97b7c3d9504dc850f4b60774065a70aa8496ba82c7889dc89')
-
-prepare() {
-  if [[ ! -f "${_nand2teris_source}" ]]
-  then
-    echo "Download ${_nand2teris_source} from ${_nand2teris_url} and place in ${srcdir}"
-    exit 1
-  fi
-
-  echo "d2cb160ad64ccb792158907d720976fb4fef8b8610bf9160dca38368153edbd9  ${_nand2teris_source}" | sha256sum -c --quiet
-  if [[ ! $? -eq 0 ]]
-  then
-    echo "Integrity check failed for ${_nand2teris_source}"
-  fi
-
-  unzip ${_nand2teris_source}
-}
+            '2cd1b2c93dd68de97b7c3d9504dc850f4b60774065a70aa8496ba82c7889dc89'
+            'SKIP'
+            )
 
 package() {
   cd ${srcdir}/${pkgname}
